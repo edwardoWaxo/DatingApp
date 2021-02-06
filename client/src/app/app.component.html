@@ -1,8 +1,6 @@
-<h1>{{title}}</h1>
-
-<ul>
-  <li *ngFor='let user of users'> {{user.id}} - {{user.userName}}</li>
-</ul>
-
-<!-- This is just a test to see a font-awesome icon ... -->
-<i class="fa fa-american-sign-language-interpreting fa-5x" aria-hidden="true"> </i>
+<app-nav></app-nav>
+<div class="container" style="margin-top: 100px">
+  <ul>
+    <li *ngFor='let user of users'> {{user.id}} - {{user.userName}}</li>
+  </ul>
+</div>
