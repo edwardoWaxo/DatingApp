@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand" href="#">Dating App</a>
 
-        <ul class="navbar-nav mr-auto" *ngIf="loggedIn">
+        <ul class="navbar-nav mr-auto" *ngIf="accountService.currentUser$ | async">
             <li class="nav-item ">
                 <a class="nav-link" href="#">Matches</a>
             </li>
@@ -12,31 +12,21 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Messages</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" (click)="logout()" href="#">Logout</a>
-            </li>
         </ul>
 
-        <div class="dropdown" *ngIf="loggedIn">
-            <a class="dropdown-toggle text-light"> Welcome User</a>
-            <div class="dropdwon-menu">
+        <div class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
+            <div class="dropdown-toggle text-light" dropdownToggle>Welcome User!</div>
+            <div class="dropdown-menu mt-3" *dropdownMenu>
                 <a class="dropdown-item">Edit Profile</a>
+                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" (click)=logout()>Logout</a>
             </div>
         </div>
 
-        <form *ngIf="!loggedIn" #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off">
-            <input 
-                name="username"
-                [(ngModel)]="model.username"
-                class="form-control me-2" 
-                type="text" 
+        <form *ngIf="(accountService.currentUser$ | async) === null" #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off">
+            <input name="username" [(ngModel)]="model.username" class="form-control me-2" type="text"
                 placeholder="Username">
-            <input 
-                name="password"
-                [(ngModel)]="model.password"
-                class="form-control me-2" 
-                type="password" 
+            <input name="password" [(ngModel)]="model.password" class="form-control me-2" type="password"
                 placeholder="Password">
             <button class="btn btn-outline-success" type="submit">Login</button>
         </form>
